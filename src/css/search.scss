@@ -1,0 +1,14 @@
+.search {
+  display: flex;
+  justify-content: center;
+  padding-block: 1rem;
+  input{
+    padding: 1rem;
+    border-radius: 0.5rem;
+    width: 30%;
+    &:focus,
+    &:focus-visible{
+      outline: 0;
+    }
+  }
+}
