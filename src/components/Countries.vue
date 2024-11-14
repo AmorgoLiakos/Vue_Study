@@ -10,22 +10,21 @@ const countriesData = ref([])
 const searchInput = ref('')
 const API_URL = 'https://restcountries.com/v3.1/'
 
-const searchFunc = async () => {
+const fetchFunc = async (url) => {
   try {
-    const res = await axios.get(API_URL + 'name/' + searchInput.value)
-    countriesData.value = res.data
+    const res = await axios.get(url)
+    return res.data
   }catch(error){
-    console.log(error);
+    return error;
   }
 }
 
-onMounted( async () => {
-  try {
-    const res = await axios.get(API_URL + "all")
-    countriesData.value = res.data
-  }catch(error){
-    console.log(error);
-  }
+const searchFunc = async () => {
+    countriesData.value = await fetchFunc(API_URL + 'name/' + searchInput.value)
+}
+
+onMounted(  async () => {
+  countriesData.value = await fetchFunc(API_URL + "all")
 })
 </script>
 
