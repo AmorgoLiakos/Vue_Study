@@ -35,7 +35,7 @@
     <input type="text" placeholder="Search by city name" v-model="searchInput" @input="searchFunc" />
   </div>
   <div class="countries-wrapper">
-    <CountryCard v-if="searchedCountriesData.length" v-for="(country,index) in searchedCountriesData" :name="country.name.common" :flag="country.flag" :timezone="country.timezones" :capital="country?.capital" :key="index" />
-    <NoSearchResults v-else />
+    <CountryCard v-for="(country,index) in searchedCountriesData" :name="country.name.common" :flag="country.flag" :timezone="country.timezones" :capital="country?.capital" :key="index" />
+    <NoSearchResults v-if="!searchedCountriesData.length" />
   </div>
 </template>
