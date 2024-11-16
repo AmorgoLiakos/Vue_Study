@@ -1,7 +1,7 @@
 <script setup>
   import {onMounted, ref} from 'vue';
   import CountryCard from './CountryCard.vue'
-  import NoSearchResults from "@/components/NoSearchResults.vue";
+  import NoSearchResults from "./NoSearchResults.vue";
   import axios from 'axios';
   import '../css/countries.scss'
   import '../css/search.scss'
