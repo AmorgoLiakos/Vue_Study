@@ -1,11 +1,12 @@
 <script setup>
-import {reactive, onMounted, ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import CountryCard from './CountryCard.vue'
 import axios from 'axios';
 import '../css/countries.scss'
 import '../css/search.scss'
 
 const countriesData = ref([])
+const searchedCountriesData = ref([])
 
 const searchInput = ref('')
 const API_URL = 'https://restcountries.com/v3.1/'
@@ -19,12 +20,13 @@ const fetchFunc = async (url) => {
   }
 }
 
-const searchFunc = async () => {
-    countriesData.value = await fetchFunc(API_URL + 'name/' + searchInput.value)
+const searchFunc = () => {
+  searchedCountriesData.value = countriesData.value.filter( country => country.name.common.toLowerCase().includes(searchInput.value.toLowerCase()) );
 }
 
 onMounted(  async () => {
   countriesData.value = await fetchFunc(API_URL + "all")
+  searchedCountriesData.value = countriesData.value
 })
 </script>
 
@@ -33,6 +35,6 @@ onMounted(  async () => {
     <input type="text" placeholder="Search by city name" v-model="searchInput" @input="searchFunc" />
   </div>
   <div class="countries-wrapper">
-    <CountryCard v-for="(country,index) in countriesData" :name="country.name.common" :flag="country.flag" :timezone="country.timezones" :capital="country?.capital" :key="index" />
+    <CountryCard v-for="(country,index) in searchedCountriesData" :name="country.name.common" :flag="country.flag" :timezone="country.timezones" :capital="country?.capital" :key="index" />
   </div>
 </template>
