@@ -4,6 +4,7 @@ import CountryCard from './CountryCard.vue'
 import axios from 'axios';
 import '../css/countries.scss'
 import '../css/search.scss'
+import NoSearchResults from "@/components/NoSearchResults.vue";
 
 const countriesData = ref([])
 const searchedCountriesData = ref([])
@@ -35,6 +36,7 @@ onMounted(  async () => {
     <input type="text" placeholder="Search by city name" v-model="searchInput" @input="searchFunc" />
   </div>
   <div class="countries-wrapper">
-    <CountryCard v-for="(country,index) in searchedCountriesData" :name="country.name.common" :flag="country.flag" :timezone="country.timezones" :capital="country?.capital" :key="index" />
+    <CountryCard v-if="searchedCountriesData.length" v-for="(country,index) in searchedCountriesData" :name="country.name.common" :flag="country.flag" :timezone="country.timezones" :capital="country?.capital" :key="index" />
+    <NoSearchResults v-else />
   </div>
 </template>
