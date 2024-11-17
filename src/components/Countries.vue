@@ -1,5 +1,5 @@
 <script setup>
-import {reactive, onMounted, ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import CountryCard from './CountryCard.vue'
 import axios from 'axios';
 import '../css/countries.scss'
