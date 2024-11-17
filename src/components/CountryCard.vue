@@ -11,9 +11,9 @@ defineProps({
 
 <template>
   <div class="country-card">
-    <div class="country-card__name"> {{ name }} </div>
-    <div class="country-card__flag"> {{ flag }} </div>
+    <div v-if="name" class="country-card__name"> {{ name }} </div>
+    <div v-if="flag" class="country-card__flag"> {{ flag }} </div>
     <div v-if="capital" class="capital"> {{ capital[0] }} </div>
-    <div class="timezones"> {{ timezone[0] }} </div>
+    <div v-if="timezone" class="timezones"> {{ timezone[0] }} </div>
   </div>
 </template>

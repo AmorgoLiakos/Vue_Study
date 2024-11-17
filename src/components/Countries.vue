@@ -7,8 +7,8 @@ import '../css/countries.scss'
 import '../css/search.scss'
 
 const countriesData = ref([])
-
 const searchInput = ref('')
+
 const API_URL = 'https://restcountries.com/v3.1/'
 
 const fetchFunc = async (url) => {
@@ -28,7 +28,17 @@ const debounce = (Inner, delay=600) => {
 }
 
 const searchFuncHelper = async () => {
-  countriesData.value = await fetchFunc(API_URL + 'name/' + searchInput.value)
+  if( !searchInput.value.length ){
+    countriesData.value = await fetchFunc(API_URL + "all")
+    return
+  }
+  let resultsData = await fetchFunc(API_URL + 'name/' + searchInput.value)
+  if( resultsData.status && resultsData.status !== 200 ){
+    countriesData.value = []
+    return
+  }
+
+  countriesData.value = await resultsData
 }
 const searchFunc = debounce(searchFuncHelper)
 
