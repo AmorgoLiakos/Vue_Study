@@ -18,7 +18,7 @@ const fetchFunc = async (url) => {
     return error;
   }
 }
-const debounceFunc = (Inner, delay=600) => {
+const debounce = (Inner, delay=600) => {
   let timer
   return () => {
     clearTimeout(timer)
@@ -29,7 +29,7 @@ const debounceFunc = (Inner, delay=600) => {
 const searchFuncHelper = async () => {
   countriesData.value = await fetchFunc(API_URL + 'name/' + searchInput.value)
 }
-const searchFunc = debounceFunc(searchFuncHelper)
+const searchFunc = debounce(searchFuncHelper)
 
 onMounted(  async () => {
   countriesData.value = await fetchFunc(API_URL + "all")
