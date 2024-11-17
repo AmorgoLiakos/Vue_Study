@@ -1,6 +1,7 @@
 <script setup>
 import {onMounted, ref} from 'vue';
 import CountryCard from './CountryCard.vue'
+import NoSearchResults from "./NoSearchResults.vue";
 import axios from 'axios';
 import '../css/countries.scss'
 import '../css/search.scss'
@@ -42,5 +43,6 @@ onMounted(  async () => {
   </div>
   <div class="countries-wrapper">
     <CountryCard v-for="(country,index) in countriesData" :name="country.name.common" :flag="country.flag" :timezone="country.timezones" :capital="country?.capital" :key="index" />
+    <NoSearchResults v-if="!countriesData.length" />
   </div>
 </template>
