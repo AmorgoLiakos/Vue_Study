@@ -2,6 +2,7 @@
 import {onMounted, ref} from 'vue';
 import CountryCard from './CountryCard.vue'
 import NoSearchResults from "./NoSearchResults.vue";
+import {debounce} from "../composables/debounce.js"
 import axios from 'axios';
 import '../css/countries.scss'
 import '../css/search.scss'
@@ -17,13 +18,6 @@ const fetchFunc = async (url) => {
     return res.data
   }catch(error){
     return error;
-  }
-}
-const debounce = (Inner, delay=600) => {
-  let timer
-  return () => {
-    clearTimeout(timer)
-    timer = setTimeout(Inner, delay)
   }
 }
 
