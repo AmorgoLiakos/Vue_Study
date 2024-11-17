@@ -18,10 +18,18 @@ const fetchFunc = async (url) => {
     return error;
   }
 }
-
-const searchFunc = async () => {
-    countriesData.value = await fetchFunc(API_URL + 'name/' + searchInput.value)
+const debounceFunc = (Inner, delay=600) => {
+  let timer
+  return () => {
+    clearTimeout(timer)
+    timer = setTimeout(Inner, delay)
+  }
 }
+
+const searchFuncHelper = async () => {
+  countriesData.value = await fetchFunc(API_URL + 'name/' + searchInput.value)
+}
+const searchFunc = debounceFunc(searchFuncHelper)
 
 onMounted(  async () => {
   countriesData.value = await fetchFunc(API_URL + "all")
