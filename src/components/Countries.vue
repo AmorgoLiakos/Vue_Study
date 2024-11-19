@@ -3,7 +3,7 @@ import {onMounted, ref} from 'vue';
 import CountryCard from './CountryCard.vue'
 import NoSearchResults from "./NoSearchResults.vue";
 import {debounce} from "../composables/debounce.js"
-import axios from 'axios';
+import {fetchFunc} from "../composables/fetch.js"
 import '../css/countries.scss'
 import '../css/search.scss'
 
@@ -11,15 +11,6 @@ const countriesData = ref([])
 const searchInput = ref('')
 
 const API_URL = 'https://restcountries.com/v3.1/'
-
-const fetchFunc = async (url) => {
-  try {
-    const res = await axios.get(url)
-    return res.data
-  }catch(error){
-    return error;
-  }
-}
 
 const searchFuncHelper = async () => {
   if( !searchInput.value.length ){
